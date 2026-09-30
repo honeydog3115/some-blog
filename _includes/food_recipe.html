@@ -1,0 +1,48 @@
+{% if page.recipe %}
+<div class="recipe-card">
+  <div class="recipe-header-meta">
+    {% if page.recipe.prep_time %}
+      <div class="recipe-badge">
+        <span class="label">⏱️ 조리 시간</span>
+        <span class="val">{{ page.recipe.prep_time }}</span>
+      </div>
+    {% endif %}
+    {% if page.recipe.difficulty %}
+      <div class="recipe-badge">
+        <span class="label">🔥 난이도</span>
+        <span class="val">{{ page.recipe.difficulty }}</span>
+      </div>
+    {% endif %}
+    {% if page.recipe.servings %}
+      <div class="recipe-badge">
+        <span class="label">🍽️ 분량</span>
+        <span class="val">{{ page.recipe.servings }}</span>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if page.recipe.ingredients %}
+    <div style="margin-bottom: 1.5rem;">
+      <h4 style="color: var(--accent-emerald); font-size: 1.1rem; margin-bottom: 0.6rem;">🛒 준비 재료</h4>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+        {% for item in page.recipe.ingredients %}
+          <span style="background: rgba(16, 185, 129, 0.1); color: var(--text-primary); padding: 0.3rem 0.8rem; border-radius: var(--radius-full); font-size: 0.9rem; font-weight: 500;">
+            {{ item }}
+          </span>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if page.recipe.steps %}
+    <div>
+      <h4 style="color: var(--accent-emerald); font-size: 1.1rem; margin-bottom: 0.8rem;">👨‍🍳 조리 순서</h4>
+      <ol style="padding-left: 1.2rem; line-height: 1.8; color: var(--text-secondary);">
+        {% for step in page.recipe.steps %}
+          <li style="margin-bottom: 0.5rem;">{{ step }}</li>
+        {% endfor %}
+      </ol>
+    </div>
+  {% endif %}
+</div>
+{% endif %}

@@ -1,0 +1,19 @@
+{% if page.movie %}
+<div class="movie-one-liner">
+  <div class="quote-mark">“</div>
+  <p class="text">{{ page.movie.one_liner }}</p>
+  <div class="quote-mark" style="text-align: right;">”</div>
+
+  <div style="margin-top: 1rem; font-size: 0.95rem; opacity: 0.9; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+    {% if page.movie.director %}
+      <span>🎬 감독: {{ page.movie.director }}</span>
+    {% endif %}
+    {% if page.movie.genre %}
+      <span>🍿 장르: {{ page.movie.genre }}</span>
+    {% endif %}
+    {% if page.movie.score %}
+      <span>⭐ 평점: {{ page.movie.score }}</span>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

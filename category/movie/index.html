@@ -1,0 +1,34 @@
+---
+layout: default
+title: "영화 리뷰"
+---
+
+<div class="hero-banner">
+  <h1 class="hero-title">🎬 영화 리뷰</h1>
+  <p class="hero-subtitle">가슴에 와닿는 명확한 '한 줄 평'과 솔직한 관람 후기</p>
+</div>
+
+<div class="posts-grid">
+  {% assign movie_posts = site.posts | where: "category", "movie" %}
+  {% for post in movie_posts %}
+    <a href="{{ post.url | relative_url }}" class="post-card category-movie" data-title="{{ post.title }}" data-category="movie">
+      <div class="post-card-banner" style="background-image: url('{{ post.image }}');">
+        <span class="post-category-badge">🎬 영화</span>
+      </div>
+      <div class="post-card-content">
+        <div class="post-meta">
+          <span>📅 {{ post.date | date: "%Y-%m-%d" }}</span>
+          {% if post.movie.score %}<span>🍿 {{ post.movie.score }}</span>{% endif %}
+        </div>
+        <h2 class="post-card-title">{{ post.title }}</h2>
+        <p class="post-card-excerpt">“{{ post.movie.one_liner }}”</p>
+        <div class="post-card-footer">
+          <span>한줄평 & 리뷰 보기</span>
+          <span>→</span>
+        </div>
+      </div>
+    </a>
+  {% else %}
+    <p style="color: var(--text-muted);">아직 작성된 영화 리뷰가 없습니다.</p>
+  {% endfor %}
+</div>

@@ -1,0 +1,51 @@
+---
+layout: default
+---
+
+<article class="article-container">
+  <header class="article-header">
+    {% if page.category %}
+      <span class="article-category category-{{ page.category | downcase }}">
+        {% case page.category %}
+          {% when "product" %}📱 제품 리뷰
+          {% when "movie" %}🎬 영화 리뷰
+          {% when "food" %}🍳 음식 & 레시피
+          {% when "anime" %}⚡ 애니메이션
+          {% else %}{{ page.category }}
+        {% endcase %}
+      </span>
+    {% endif %}
+
+    <h1 class="article-title">{{ page.title }}</h1>
+
+    <div class="article-meta-row">
+      <span>📅 {{ page.date | date: "%Y-%m-%d" }}</span>
+      {% assign words = content | number_of_words %}
+      <span>⏱️ 읽기 약 {{ words | divided_by: 180 | plus: 1 }}분 소요</span>
+      {% if page.author %}
+        <span>✍️ {{ page.author }}</span>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- Category-specific interactive components -->
+  {% if page.category == "product" %}
+    {% include product_review.html %}
+  {% elsif page.category == "movie" %}
+    {% include movie_review.html %}
+  {% elsif page.category == "food" %}
+    {% include food_recipe.html %}
+  {% elsif page.category == "anime" %}
+    {% include anime_review.html %}
+  {% endif %}
+
+  <div class="article-body">
+    {{ content }}
+  </div>
+
+  <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+    <a href="{{ '/' | relative_url }}" style="font-weight: 700; color: var(--accent-purple); display: flex; align-items: center; gap: 0.4rem;">
+      ← 목록으로 돌아가기
+    </a>
+  </div>
+</article>

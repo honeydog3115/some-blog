@@ -1,0 +1,34 @@
+---
+layout: default
+title: "음식 & 레시피"
+---
+
+<div class="hero-banner">
+  <h1 class="hero-title">🍳 음식 & 레시피</h1>
+  <p class="hero-subtitle">퇴근 후 빠른 15분 조리부터 특별한 요리까지 시각적 레시피 카드</p>
+</div>
+
+<div class="posts-grid">
+  {% assign food_posts = site.posts | where: "category", "food" %}
+  {% for post in food_posts %}
+    <a href="{{ post.url | relative_url }}" class="post-card category-food" data-title="{{ post.title }}" data-category="food">
+      <div class="post-card-banner" style="background-image: url('{{ post.image }}');">
+        <span class="post-category-badge">🍳 레시피</span>
+      </div>
+      <div class="post-card-content">
+        <div class="post-meta">
+          <span>📅 {{ post.date | date: "%Y-%m-%d" }}</span>
+          {% if post.recipe.prep_time %}<span>⏱️ {{ post.recipe.prep_time }}</span>{% endif %}
+        </div>
+        <h2 class="post-card-title">{{ post.title }}</h2>
+        <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 90 }}</p>
+        <div class="post-card-footer">
+          <span>레시피 보기</span>
+          <span>→</span>
+        </div>
+      </div>
+    </a>
+  {% else %}
+    <p style="color: var(--text-muted);">아직 작성된 음식 레시피가 없습니다.</p>
+  {% endfor %}
+</div>

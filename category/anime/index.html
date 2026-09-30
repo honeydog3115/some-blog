@@ -1,0 +1,34 @@
+---
+layout: default
+title: "애니 리뷰"
+---
+
+<div class="hero-banner">
+  <h1 class="hero-title">⚡ 애니메이션 리뷰</h1>
+  <p class="hero-subtitle">화려한 이펙트, 전율의 액션 연출과 관전 포인트를 짚어주는 애니 분석</p>
+</div>
+
+<div class="posts-grid">
+  {% assign anime_posts = site.posts | where: "category", "anime" %}
+  {% for post in anime_posts %}
+    <a href="{{ post.url | relative_url }}" class="post-card category-anime" data-title="{{ post.title }}" data-category="anime">
+      <div class="post-card-banner" style="background-image: url('{{ post.image }}');">
+        <span class="post-category-badge">⚡ 애니</span>
+      </div>
+      <div class="post-card-content">
+        <div class="post-meta">
+          <span>📅 {{ post.date | date: "%Y-%m-%d" }}</span>
+          {% if post.anime.studio %}<span>🎬 {{ post.anime.studio }}</span>{% endif %}
+        </div>
+        <h2 class="post-card-title">{{ post.title }}</h2>
+        <p class="post-card-excerpt">{{ post.anime.highlight | default: post.excerpt | strip_html | truncate: 90 }}</p>
+        <div class="post-card-footer">
+          <span>애니 분석 보기</span>
+          <span>→</span>
+        </div>
+      </div>
+    </a>
+  {% else %}
+    <p style="color: var(--text-muted);">아직 작성된 애니메이션 리뷰가 없습니다.</p>
+  {% endfor %}
+</div>

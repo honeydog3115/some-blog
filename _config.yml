@@ -1,0 +1,58 @@
+# Site settings
+title: "InsightLog | 리뷰 & 라이프"
+email: "author@example.com"
+description: "제품, 영화, 음식 레시피, 애니메이션 리뷰를 한눈에 보는 모던 리뷰 블로그"
+baseurl: ""
+url: ""
+author:
+  name: "리뷰어"
+  avatar: "/assets/images/avatar.png"
+  bio: "직장인을 위한 3분 컷 모던 리뷰 & 정보 블로그"
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+highlighter: rouge
+permalink: /posts/:title/
+
+# Pagination
+paginate: 6
+paginate_path: "/page:num/"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# Sass configuration
+sass:
+  style: compressed
+  sass_dir: _sass
+
+# Navigation
+navigation:
+  - title: "전체글"
+    url: "/"
+  - title: "제품 리뷰"
+    url: "/category/product/"
+  - title: "영화 리뷰"
+    url: "/category/movie/"
+  - title: "음식 & 레시피"
+    url: "/category/food/"
+  - title: "애니 리뷰"
+    url: "/category/anime/"
+  - title: "소개"
+    url: "/about/"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
+  - vendor

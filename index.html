@@ -1,0 +1,77 @@
+---
+layout: default
+title: "InsightLog | 리뷰 & 라이프"
+---
+
+<!-- Hero Banner -->
+<section class="hero-banner">
+  <h1 class="hero-title">✨ 직장인을 위한 3분 컷 모던 리뷰</h1>
+  <p class="hero-subtitle">
+    제품, 영화 한 줄 평, 맛있는 레시피, 화려한 애니 리뷰까지 한눈에 즐기세요.
+  </p>
+</section>
+
+<!-- Quick Search Box -->
+<div class="search-container">
+  <input type="text" id="search-input" class="search-input" placeholder="🔍 제목, 카테고리, 키워드로 빠르게 검색해보세요..." />
+</div>
+
+<!-- Category Quick Navigation Chips -->
+<div style="display: flex; gap: 0.6rem; overflow-x: auto; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+  <a href="{{ '/' | relative_url }}" style="padding: 0.4rem 1rem; background: var(--accent-purple); color: #fff; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700;">전체</a>
+  <a href="{{ '/category/product/' | relative_url }}" style="padding: 0.4rem 1rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 600;">📱 제품 리뷰</a>
+  <a href="{{ '/category/movie/' | relative_url }}" style="padding: 0.4rem 1rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 600;">🎬 영화 리뷰</a>
+  <a href="{{ '/category/food/' | relative_url }}" style="padding: 0.4rem 1rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 600;">🍳 음식 & 레시피</a>
+  <a href="{{ '/category/anime/' | relative_url }}" style="padding: 0.4rem 1rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 600;">⚡ 애니 리뷰</a>
+</div>
+
+<!-- Posts Cards Grid -->
+<div class="posts-grid">
+  {% for post in site.posts %}
+    <a href="{{ post.url | relative_url }}" class="post-card category-{{ post.category | downcase }}" data-title="{{ post.title }}" data-category="{{ post.category }}" data-excerpt="{{ post.excerpt | strip_html }}">
+
+      <div class="post-card-banner" style="background-image: url('{% if post.image %}{{ post.image }}{% else %}https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=800&auto=format&fit=crop{% endif %}');">
+        <span class="post-category-badge">
+          {% case post.category %}
+            {% when "product" %}📱 제품
+            {% when "movie" %}🎬 영화
+            {% when "food" %}🍳 레시피
+            {% when "anime" %}⚡ 애니
+            {% else %}{{ post.category }}
+          {% endcase %}
+        </span>
+      </div>
+
+      <div class="post-card-content">
+        <div class="post-meta">
+          <span>📅 {{ post.date | date: "%m월 %d일" }}</span>
+          {% if post.product.rating %}
+            <span>⭐ {{ post.product.rating }}</span>
+          {% elsif post.movie.score %}
+            <span>🍿 {{ post.movie.score }}</span>
+          {% elsif post.recipe.prep_time %}
+            <span>⏱️ {{ post.recipe.prep_time }}</span>
+          {% endif %}
+        </div>
+
+        <h2 class="post-card-title">{{ post.title }}</h2>
+
+        <p class="post-card-excerpt">
+          {% if post.movie.one_liner %}
+            “{{ post.movie.one_liner }}”
+          {% elsif post.product.verdict %}
+            {{ post.product.verdict }}
+          {% else %}
+            {{ post.excerpt | strip_html | truncate: 90 }}
+          {% endif %}
+        </p>
+
+        <div class="post-card-footer">
+          <span>자세히 보기</span>
+          <span>→</span>
+        </div>
+      </div>
+
+    </a>
+  {% endfor %}
+</div>

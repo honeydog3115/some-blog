@@ -1,0 +1,60 @@
+{% if page.product %}
+<div class="product-summary-card">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <h3 style="margin: 0; font-size: 1.4rem; color: var(--text-primary);">{{ page.product.name }}</h3>
+      {% if page.product.price %}
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.2rem;">가격: {{ page.product.price }}</p>
+      {% endif %}
+    </div>
+
+    {% if page.product.rating %}
+      <div class="star-rating">
+        {% assign rating = page.product.rating | plus: 0 %}
+        {% for i in (1..5) %}
+          {% if rating >= i %}
+            ★
+          {% elsif rating >= i | minus: 0.5 %}
+            ½
+          {% else %}
+            ☆
+          {% endif %}
+        {% endfor %}
+        <span class="rating-score">{{ page.product.rating }} / 5.0</span>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if page.product.verdict %}
+    <div style="margin-top: 1rem; padding: 0.8rem 1rem; background: var(--bg-surface); border-radius: var(--radius-sm); border-left: 4px solid var(--accent-purple);">
+      <strong>한줄 총평:</strong> {{ page.product.verdict }}
+    </div>
+  {% endif %}
+
+  {% if page.product.pros or page.product.cons %}
+    <div class="product-pros-cons">
+      {% if page.product.pros %}
+        <div class="pros-list">
+          <h4>👍 장점</h4>
+          <ul style="padding-left: 1.2rem; margin-top: 0.5rem; color: var(--text-secondary);">
+            {% for pro in page.product.pros %}
+              <li>{{ pro }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if page.product.cons %}
+        <div class="cons-list">
+          <h4>👎 단점</h4>
+          <ul style="padding-left: 1.2rem; margin-top: 0.5rem; color: var(--text-secondary);">
+            {% for con in page.product.cons %}
+              <li>{{ con }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endif %}
